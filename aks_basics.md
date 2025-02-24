@@ -162,6 +162,17 @@ kubectl get nodes
 
 ### 3.5.5. Deploy the application
 
+To deploy your application, you first need to change the application manifest to use the container image you built in a previous step. Open up the manifest with **code** like this
+
+````code manifests/deployment.yaml````
+
+Look for a line that looks like this:
+````image: mcr.microsoft.com/azuredocs/azure-vote-front````
+
+And replace the line with a URL corresponding to your own container registry. It will look similar to this:
+````image: <your unique ACR name>.azurecr.io/azure-vote-front:v1````
+
+
 To deploy your application, use the ```kubectl apply``` command. This command parses the manifest file and creates the needed Kubernetes objects. The following commands first deploy the services, and then the deployments (with the actual pods):
 
 Note: First make sure you are in the base directory of the repo ````aks_basics````
