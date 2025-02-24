@@ -75,7 +75,7 @@ All the resources you create in this workshop will use the same Resource Group. 
 If you are working in a shared subscription, make sure that you create a uniqely named resource group, eg by using your corporate signum.
 
 ````bash
-az group create -n <resource-group-name> -l westeurope
+az group create -n <resource-group-name> -l swedencentral
 ````
 
 ## 3.4. ACR - Azure Container Registry
@@ -141,7 +141,7 @@ Kubernetes provides a distributed platform for containerized applications. You b
 Create an AKS cluster using ````az aks create````. Make sure to attach the Azure Container Registry created in a previous step, using the ````attach-acr flag````. Lets give the cluster the name  ````k8s````, and run the command:
 
 ```azurecli
-az aks create --resource-group <resource-group-name> --name k8s --node-count 1 --node-vm-size Standard_D2s_v4 -attach-acr <your unique ACR name> --enable-cluster-autoscaler --min-count 1 --max-count 10
+az aks create --resource-group <resource-group-name> --name k8s --node-count 1 --node-vm-size Standard_D2s_v4 --attach-acr <your unique ACR name> --enable-cluster-autoscaler --min-count 1 --max-count 10 --generate-ssh-keys
 ```
 
 The creation time for the cluster can be up to 10 minutes, so this might be a good time for a leg stretcher and/or cup of coffee!
@@ -163,6 +163,8 @@ kubectl get nodes
 ### 3.5.5. Deploy the application
 
 To deploy your application, use the ```kubectl apply``` command. This command parses the manifest file and creates the needed Kubernetes objects. The following commands first deploy the services, and then the deployments (with the actual pods):
+
+Note: First make sure you are in the base directory of the repo ````aks_basics````
 
 ```console
 kubectl apply -f manifests/deployment.yaml
