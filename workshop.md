@@ -8,8 +8,6 @@ You will go through the following steps to complete the workshop:
 * Setup Azure Container Registry to build and store docker images
 * Create Kubernetes Cluster using AKS (Azure Kubernetes Service)
 * Deploy application to Kubernetes
-* Use Helm to create templated Kubernetes applications
-* and more...
 
 # 2. Prerequisites
 
@@ -45,18 +43,20 @@ Start cloud shell by typing the address ````shell.azure.com```` into a web brows
 The code for this workshop is located in the same repository that you are looking at now. To *clone* the repository to your cloud shell, do this:
 
 ```bash
-git clone https://github.com/pelithne/k8s.git
+git clone https://github.com/pelithne/aks_workshop.git
 ```
 
 Then cd into the repository directory:
 
 ````bash
-cd k8s
+cd aks_workshop
 ````
 
 ## 3.2. View the code
 
 Azure Cloud Shell has a built in code editor, which is based on the popular VS Code editor. To view/edit all the files in the repository, run code like this:
+
+Note: If you are asked to "downgrade" to classic, please do so.
 
 ````bash
 code .
@@ -138,10 +138,10 @@ Kubernetes provides a distributed platform for containerized applications. You b
 ### Note: you may need a special command to create your cluster. Ask you coach for guidance
 
 
-Create an AKS cluster using ````az aks create````. Lets give the cluster the name  ````k8s````, and run the command:
+Create an AKS cluster using ````az aks create````. Make sure to attach the Azure Container Registry created in a previous step, using the ````attach-acr flag````. Lets give the cluster the name  ````k8s````, and run the command:
 
 ```azurecli
-az aks create --resource-group <resource-group-name> --name k8s --generate-ssh-keys  --load-balancer-sku basic --node-count 1 --node-vm-size Standard_D2s_v4
+az aks create --resource-group <resource-group-name> --name k8s --generate-ssh-keys  --load-balancer-sku basic --node-count 1 --node-vm-size Standard_D2s_v4 -attach-acr <your unique ACR name>
 ```
 
 The creation time for the cluster can be up to 10 minutes, so this might be a good time for a leg stretcher and/or cup of coffee!
@@ -159,57 +159,6 @@ To verify that your cluster is up and running you can try a kubectl command, lik
 ````bash
 kubectl get nodes
 ````
-
-### 3.5.3 Create image pull secret
-For convenience, we previously allowed "admin" login to our ACR. This enables us to use a Kubernetes secret in the manifest, which will hold the ACR credentials. 
-
-To create the secret, you need credentials. These can be found in the Azure portal. First navigate to your Container Registry. Then go to **Access Keys**. In the blade that opens up, you will see the ````login server````, the ````Username```` and ````Password```` that you will use to create the secret.
-
-Note that the ````login-server```` will be on the format <your unique ACR name>.azurecr.io and that ````Username```` will be the same as "your unique ACR name" used when creating the container registry.
-
-Either one of the two passwords can be used.
-
-To create the secret: 
-````
-kubectl create secret docker-registry acr-secret --docker-server=<login-server> --docker-username=<Username> --docker-password=<Password> 
-````
-
-### 3.5.4. Update a Kubernetes manifest file
-
-You have built a docker image with the sample application, in the Azure Container Registry (ACR). To deploy the application to Kubernetes, you must update the image name in the Kubernetes manifest file to include the ACR login server name. Currently the manifest "points" to a container located in the microsoft repository in *docker hub*.
-
-The manifest file to modify is the one that was downloaded when cloning the repository in a previous step. The location of the manifest file is in the ````./k8s/application/azure-vote-app```` directory.
-
-The sample manifest file from the git repo cloned in the first tutorial uses the login server name of *microsoft*. Open this manifest file with a text editor, such as `code`:
-
-```bash
-code azure-vote-all-in-one-redis.yaml
-```
-
-Replace *microsoft* with your ACR login server name. The following example shows the original content and where you need to replace the **image**.
-
-Original:
-
-```yaml
-containers:
-- name: azure-vote-front
-  image: mcr.microsoft.com/azuredocs/azure-vote-front:v2
-```
-
-Provide the ACR login server and image pull secret so that your manifest file looks like the following example:
-
-```yaml
-containers:
-- name: azure-vote-front
-  image: <your unique ACR name>.azurecr.io/azure-vote-front:v1
-imagePullSecrets:
-- name: acr-secret  
-  
-```
-
-Please also take some time to study the manifest file, to get a better understanding of what it contains.
-
-Right click Save and then right click Quit.
 
 ### 3.5.5. Deploy the application
 
@@ -271,7 +220,7 @@ In this step the sample Azure Vote app is updated. You learn how to:
 * Create an updated container image
 * Deploy the updated container image to AKS
 
-### 3.5.7. Increase number of pods
+### 3.5.7. Increase number of replicas (pods in deployemnt)
 
 Let's make a change to the sample application, then update the version already deployed to your AKS cluster. 
 
@@ -432,94 +381,3 @@ Make sure the application is deleted from the cluster (otherwise a later step, w
 ````bash
 kubectl delete -f azure-vote-all-in-one-redis.yaml
 ````
-
-
-## 3.7. Extra tasks
-
-If you still have time, and want to learn more.
-
-## 3.8. HELM
-
-Helm is an open-source packaging tool that helps you install and manage the life cycle of Kubernetes applications. Similar to Linux package managers such as APT and Yum, Helm is used to manage Kubernetes charts, which are packages of preconfigured Kubernetes resources.
-
-In this exercise you will use Helm to deploy the same application you just deployed using ````kubectl````.
-
-### 3.8.1. Using Helm
-
-Cloud shell already has helm installed, with the latest version of Helm 3.
-
-If you want to, you can check if helm works by running the ````helm version````command:
-
-````bash
-helm version
-````
-
-Which should give something like:
-
-````bash
-version.BuildInfo{Version:"v3.0.2", GitCommit:"19e47ee3283ae98139d98460de796c1be1e3975f", GitTreeState:"clean", GoVersion:"go1.13.5"}
-````
-
-**Note: In the previous version of Helm, there was a server side component as well, named "Tiller". This is no longer the case.**
-
-### 3.8.2. Helm and Azure Vote
-
-The repository that you cloned in the beginning of the tutorial (or during preparations) contains a **helm chart** to deploy the application using **Helm**.
-
-Start by changing the directory to where the **helm chart** is located.
-
-````bash
-cd ..
-cd application/azvote-helmchart
-````
-
-Then you need to update your helm chart to point to the container image you created earlier in the **Azure Container Registry**. This is done in the file ````deployments.yaml```` located in ````azvote-helmchart/templates/````. This is essentially the same thing you did earlier in you kubernetes manifest .yaml file.
-
-Change the line:
-
-````bash
-image: microsoft/azure-vote-front:v1
-````
-
-to
-
-````bash
-image: <your unique ACR name>.azurecr.io/azure-vote-front:v2
-````
-
-### 3.8.3. Deploy Azure-vote app using Helm
-
-Deploying the azure-vote app using helm can be done with this command, which will give the Helm deployment a name ````azvote```` and use the helm chart in the ````azvote-helmchart```` (indicated by the dot):
-
-````bash
-helm install azvote .
-````
-
-After some time, you should be able to access the vote app in your browser. To find out when it is available, use ````kubectl get services````
-
-### 3.8.4. Helm Upgrade
-
-One of the advantages with Helm is that configuration values can be separated from values that are more static. Have a look at the file ````values.yaml```` which contains configurations that we can change dynamically. For example, you can upgrade your current deployment and give it new configuration values from the command line.
-
-To modify the application, use the command ````helm upgrade````, and send some new configuration values to it:
-
-````bash
-helm upgrade azvote . --set title="Beer" --set value1="Industry Lager" --set value2="Cask Ale"
-````
-
-Much better!
-
-<p align="left">
-  <img width="75%" height="75%" hspace="0" src="./media/beer4.png">
-</p>
-
-### 3.8.5. Cleaning up
-
-To keep things tidy in the cluster, delete the application you just deployed with helm
-
-````bash
-helm delete azvote
-
-````
-
-This will remove all the pods and services, and other resources related to the application.
