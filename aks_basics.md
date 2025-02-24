@@ -162,13 +162,14 @@ kubectl get nodes
 
 ### 3.5.5. Deploy the application
 
-To deploy your application, use the ```kubectl apply``` command. This command parses the manifest file and creates the needed Kubernetes objects. Specify the sample manifest file, as shown in the following example:
+To deploy your application, use the ```kubectl apply``` command. This command parses the manifest file and creates the needed Kubernetes objects. The following commands first deploy the services, and then the deployments (with the actual pods):
 
 ```console
-kubectl apply -f azure-vote-all-in-one-redis.yaml
+kubectl apply -f manifests/deployment.yaml
+kubectl apply -f manifests/service.yaml
 ```
 
-When the manifest is applied, a pod and a service is created. The pod contains the "business logic" of your application and the service exposes the application to the internet. This process can take a few minutes, in part because the container image needs to be downloaded from ACR to the Kubernetes Cluster. 
+When the manifests have applied, two pods and two services are created. The pods contains the "business logic" of your application and the services expose the application to the internet (and internally in AKS). This process can take a few minutes, in part because the container image needs to be downloaded from ACR to the Kubernetes Cluster. 
 
 To monitor the progress of the download, you can use ``kubectl get pods`` and ``kubectl describe pod``, like this:
 

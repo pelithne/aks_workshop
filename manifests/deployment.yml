@@ -1,19 +1,67 @@
-apiVersion : apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pelithne 
+  name: azure-vote-back
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pelithne
+      app: azure-vote-back
   template:
     metadata:
       labels:
-        app: pelithne 
+        app: azure-vote-back
     spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
       containers:
-        - name: pelithne 
-          image: pelithneacr.azurecr.io/pelithne
-          ports:
-          - containerPort: 80
+      - name: azure-vote-back
+        image: redis
+        ports:
+        - containerPort: 6379
+          name: redis
+        resources:
+          requests:
+            cpu: 250m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 512Mi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azure-vote-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azure-vote-front 
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5 
+  template:
+    metadata:
+      labels:
+        app: azure-vote-front
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: azure-vote-front
+        image: mcr.microsoft.com/azuredocs/azure-vote-front:v2
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 150m
+            memory: 100Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        env:
+        - name: REDIS
+          value: "azure-vote-back"
