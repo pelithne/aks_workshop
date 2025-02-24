@@ -161,7 +161,7 @@ To verify that your cluster is up and running you can try a kubectl command, lik
 kubectl get nodes
 ````
 
-### 3.6. Deploy the application
+## 3.6. Deploy the application
 
 To deploy your application, you first need to change the application manifest to use the container image you built in a previous step. Open up the manifest with **code** like this
 
@@ -344,7 +344,7 @@ Now open a local web browser to the IP address.
 
 ![Image of Kubernetes cluster on Azure](./media/vote-app-updated-external.png)
 
-### 3.7. Clean-up
+## 3.7. Clean-up
 
 Make sure the application is deleted from the cluster
 
