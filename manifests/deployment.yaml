@@ -1,6 +1,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: azure-vote-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azure-vote-front 
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5 
+  template:
+    metadata:
+      labels:
+        app: azure-vote-front
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: azure-vote-front
+        image: mcr.microsoft.com/azuredocs/azure-vote-front
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 150m
+            memory: 100Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        env:
+        - name: REDIS
+          value: "azure-vote-back"
+
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: azure-vote-back
 spec:
   replicas: 1
@@ -28,40 +68,4 @@ spec:
             cpu: 1000m
             memory: 512Mi
 
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: azure-vote-front
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: azure-vote-front 
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-  minReadySeconds: 5 
-  template:
-    metadata:
-      labels:
-        app: azure-vote-front
-    spec:
-      nodeSelector:
-        "beta.kubernetes.io/os": linux
-      containers:
-      - name: azure-vote-front
-        image: mcr.microsoft.com/azuredocs/azure-vote-front
-        ports:
-        - containerPort: 80
-        resources:
-          requests:
-            cpu: 150m
-            memory: 100Mi
-          limits:
-            cpu: 250m
-            memory: 256Mi
-        env:
-        - name: REDIS
-          value: "azure-vote-back"
+

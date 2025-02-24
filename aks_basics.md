@@ -8,6 +8,7 @@ You will go through the following steps to complete the workshop:
 * Setup Azure Container Registry to build and store docker images
 * Create Kubernetes Cluster using AKS (Azure Kubernetes Service)
 * Deploy application to Kubernetes
+* Modify application and redeploy
 
 # 2. Prerequisites
 
@@ -175,8 +176,6 @@ And replace the line with a URL corresponding to your own container registry. It
 
 To deploy your application, use the ```kubectl apply``` command. This command parses the manifest file and creates the needed Kubernetes objects. The following commands first deploy the services, and then the deployments (with the actual pods):
 
-Note: First make sure you are in the base directory of the repo ````aks_basics````
-
 ```console
 kubectl apply -f manifests/deployment.yaml
 kubectl apply -f manifests/service.yaml
@@ -198,7 +197,7 @@ Then use ``kubectl describe pod`` with the name of your pod:
 kubectl describe pod <pod name>
 ```
 
-You can also use ``kubectl describe`` to trouble shoot any problems you might have with the deployment (for instance, a common problem is **Error: ErrImagePull**, which can be caused by incorrect credentials or incorrect address/path to the container in ACR. It can also happen if the Kubernetes Cluster does not have read permission in the Azure Container Registry.
+You can also use ``kubectl describe`` to troubleshoot any problems you might have with the deployment (for instance, a common problem is **Error: ErrImagePull**, which can be caused by incorrect credentials or incorrect address/path to the container in ACR. It can also happen if the Kubernetes Cluster does not have read permission in the Azure Container Registry.
 
 Once your container has been pulled and started, showing state **READY**, you can instead start monitoring the **service** to see when a public IP address has been created.
 
@@ -234,55 +233,6 @@ In this step the sample Azure Vote app is updated. You learn how to:
 * Create an updated container image
 * Deploy the updated container image to AKS
 
-### 3.5.7. Increase number of replicas (pods in deployemnt)
-
-Let's make a change to the sample application, then update the version already deployed to your AKS cluster. 
-
-First we want to make sure that the update can be completed without service interruption. For this to be possible, we need multiple instances of the front end pod. This will enable Kubernetes to update the app as a "rolling update", which means that it will restart the pods in sequence making sure that one or more is always running.
-
-To achieve that, open the sample manifest file `deployment.yaml` and change the number of replicas of the ````azure-vote-front```` pod from 1 to 2, on line 34 (or similar).
-
-````bash
-code manifests/deployment.yaml
-````
-
-Change
-
-```yaml
-kind: Deployment
-metadata:
-  name: azure-vote-front
-spec:
-  replicas: 1
-```
-
-to
-
-```yaml
-kind: Deployment
-metadata:
-  name: azure-vote-front
-spec:
-  replicas: 2
-```
-
-To activate the new configuration, use ````kubectl apply```` in cloud shell:
-
-````bash
-kubectl apply -f manifests/deployment.yaml
-````
-
-Now you can verify the number of running front-end instances with the ```kubectl get pods``` command:
-
-```bash
-$ kubectl get pods
-NAME                                READY   STATUS    RESTARTS   AGE
-azure-vote-back-769d45cfcb-gk496    1/1     Running   0          51m
-azure-vote-front-74b865bcd9-52xkm   1/1     Running   0          49s
-azure-vote-front-74b865bcd9-94lrz   1/1     Running   0          49s
-```
-
-### 3.5.8. Update the application
 
 The sample application source code can be found inside of the *azure-vote* directory. Open the *config_file.cfg* file with an editor, such as `code`:
 
@@ -306,6 +256,12 @@ Save and close the file.
 
 To build a new front-end image, use ```az acr build``` the same way as before, but make sure to change the version from ````v1```` to ````v2````
 
+
+First cd into the application directory again.
+````
+cd application/azure-vote-app
+````
+
 ```bash
 az acr build --image azure-vote-front:v2 --registry <your unique ACR name> --file Dockerfile .
 ```
@@ -320,9 +276,11 @@ az acr repository show-tags --name <Your ACR Name> --repository azure-vote-front
 
 ### 3.5.10. Deploy the updated application
 
-To update the application, you can use  ```kubectl set``` and specify the new application version, but the preferred way is to edit the kubernetes manifest to change the version:
+To update the application, you can use  ```kubectl set``` and specify the new application version, but the preferred way is to edit the kubernetes manifest to change the version.
 
-Open the file ````manifests/deployment.yaml```` again and change ````image:```` from ````<Your ACR Name>.azurecr.io/azure-vote-front:v1```` to ````<Your ACR Name>.azurecr.io/azure-vote-front:v2```` on line 47 (or close to 47...).
+Note: First make sure you are in the base directory of the repo ````aks_basics````
+
+Open the file ````manifests/deployment.yaml```` again and change the version of the ````image:```` from ````<Your ACR Name>.azurecr.io/azure-vote-front:v1```` to ````<Your ACR Name>.azurecr.io/azure-vote-front:v2````
 
 Change
 
