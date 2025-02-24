@@ -161,7 +161,7 @@ To verify that your cluster is up and running you can try a kubectl command, lik
 kubectl get nodes
 ````
 
-### 3.5.5. Deploy the application
+### 3.6. Deploy the application
 
 To deploy your application, you first need to change the application manifest to use the container image you built in a previous step. Open up the manifest with **code** like this
 
@@ -223,7 +223,7 @@ To see the application in action, open a web browser to the external IP address.
 
 ![Image of Kubernetes cluster on Azure](./media/azure-vote.png)
 
-### 3.5.6. Update an application in Azure Kubernetes Service (AKS)
+### 3.6.1. Update an application in Azure Kubernetes Service (AKS)
 
 After an application has been deployed in Kubernetes, it can be updated by specifying a new container image or image version. When doing so, the update is staged so that only a portion of the deployment is concurrently updated. This staged update enables the application to keep running during the update. It also provides a rollback mechanism if a deployment failure occurs.
 
@@ -252,7 +252,7 @@ SHOWHOST = 'false'
 
 Save and close the file.
 
-### 3.5.9. Update the container image
+### 3.6.2. Update the container image
 
 To build a new front-end image, use ```az acr build``` the same way as before, but make sure to change the version from ````v1```` to ````v2````
 
@@ -274,7 +274,7 @@ You can check that all went well with the ````az acr repository show-tags```` co
 az acr repository show-tags --name <Your ACR Name> --repository azure-vote-front --output table
 ````
 
-### 3.5.10. Deploy the updated application
+### 3.6.3. Deploy the updated application
 
 To update the application, you can use  ```kubectl set``` and specify the new application version, but the preferred way is to edit the kubernetes manifest to change the version.
 
@@ -332,7 +332,7 @@ azure-vote-front-1297194256-tpjlg  1/1       Running       0          1m
 azure-vote-front-1297194256-zktw9  1/1       Terminating   0          1m
 ```
 
-### 3.5.11. Test the updated application
+### 3.6.4. Test the updated application
 
 To view the updated application, first get the external IP address of the `azure-vote-front` service (will be the same as before, since the service was not updated, only the pod):
 
@@ -344,9 +344,9 @@ Now open a local web browser to the IP address.
 
 ![Image of Kubernetes cluster on Azure](./media/vote-app-updated-external.png)
 
-### 3.5.12. Clean-up
+### 3.7. Clean-up
 
-Make sure the application is deleted from the cluster (otherwise a later step, which is using Helm, might have issues...)
+Make sure the application is deleted from the cluster
 
 ````bash
 kubectl delete -f manifests/deployment.yaml
