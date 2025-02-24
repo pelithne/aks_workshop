@@ -141,7 +141,7 @@ Kubernetes provides a distributed platform for containerized applications. You b
 Create an AKS cluster using ````az aks create````. Make sure to attach the Azure Container Registry created in a previous step, using the ````attach-acr flag````. Lets give the cluster the name  ````k8s````, and run the command:
 
 ```azurecli
-az aks create --resource-group <resource-group-name> --name k8s --generate-ssh-keys  --load-balancer-sku basic --node-count 1 --node-vm-size Standard_D2s_v4 -attach-acr <your unique ACR name>
+az aks create --resource-group <resource-group-name> --name k8s --node-count 1 --node-vm-size Standard_D2s_v4 -attach-acr <your unique ACR name> --enable-cluster-autoscaler --min-count 1 --max-count 10
 ```
 
 The creation time for the cluster can be up to 10 minutes, so this might be a good time for a leg stretcher and/or cup of coffee!
