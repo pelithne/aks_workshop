@@ -112,7 +112,9 @@ When you click on **Azure Managed Grafana** you will be presented with the optio
 
 Click on **Create Azure Managed Grafana**
 
-Now, you need to configure your Grafana, just like when creating any Azure resource with the portal. You only have to care about the **Basics**
+Now, you need to configure your Grafana, just like when creating any Azure resource with the portal. 
+
+You only have to care about the **Basics**
 
 | Property           | Value                                                                |
 |--------------------|----------------------------------------------------------------------|
