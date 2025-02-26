@@ -131,13 +131,6 @@ Kubernetes provides a distributed platform for containerized applications. You b
 
 ### Note: you may need a special command to create your cluster. Ask you coach for guidance
 
-First, you need to create a resource group for your AKS cluster. 
-
-````
-az group create  --name <resource-group-name> --location=swedencentral
-````
-
-
 Create an AKS cluster using ````az aks create````. Make sure to attach the Azure Container Registry created in a previous step, using the ````attach-acr flag````. Lets give the cluster the name  ````k8s````, and run the command:
 
 ```azurecli
