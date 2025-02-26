@@ -13,7 +13,7 @@ You will go through the following steps to complete the workshop:
 # 2. Prerequisites
 
 ## 2.1 Subscription
-You should have received a Azure Subscription Voucher. If you have not already activate, you can do that now. DO NOT USE YOUR WORK EMAIL.
+You should have received a Azure Subscription Voucher. If you have not already activated your subscription, you can do that now. DO NOT USE YOUR WORK EMAIL.
 
 ## 2.2. Azure Portal
 
