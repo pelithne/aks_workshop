@@ -127,7 +127,7 @@ You only have to care about the **Basics**
 
 Then select **Create** and after validation click on the **Create** button.
 
-#### Link Grafana workspace with 
+#### Link Grafana workspace 
 When you configured the Prometheus scraping, an **Azure Monitor Workspace** was automatically created for you. For **Grafana** to be able to use the metrics from Prometheus, a connection to that workspace needs to be configured. 
 
 The easiest way to find the workspace is to search in the Azure Portal. Search for **Azure Monitor Workspace**
@@ -151,12 +151,12 @@ Select it, and click on the **Link** button.
 
 #### Create your first dashboard
 
-When the **Managed Grafana** instance has been created, just click on **Go to resource**
+When the **Managed Grafana** instance was created, you probably saw something like this **Go to resource**
 
 
 <img src="./media/grafana-go-to-resource.png" alt="Search" width="50%">
 
-(if you closed the blade, you can search for **Grafana** again in the search field of the Azure Portal)
+If you navigated away from this, you can simply search for **Grafana** again in the search field of the Azure Portal.
 
 
 In the **Overview** of your Grafana resource, there will be a link to your **Grafana Endpoint** which will look similar to ````https://k8s-ws-grafana-98765-hhh6gsfgbmaacjba.cse.grafana.azure.com````. 
@@ -167,6 +167,33 @@ In the left hand navigation pane, select **Dashboards**
 
 <img src="./media/grafana-navigation.png" alt="Search" width="30%">
 
+You should see three categories, Azure Managed Prometheus, Azure Monitor and Microsoft Defender for Cloud. The one you are interested in today, is the Azure Managed Prometheus. 
+
+
+<img src="./media/grafana-dashboards.png" alt="Search" width="50%">
+
+Expand **Azure Managed Prometheus** to find the preconfigured dashboards underneath. Select (for example) the one named **Kubernetes / Compute Resources / Node (Pods)**
+
+This dashboard container metrics for CPU and Memory utilization in the pods. In the lists on the right hand side, next to the graphs you can select for which pod you want to see metrics.
+
+<img src="./media/grafana-node-pod-dasboard.png" alt="Search" width="50%">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Click on **New** in the top right hand corner, and then choose **New Dashboard**. 
 
 In the dialoge that follows, select **+ Add Visualization**
@@ -174,6 +201,10 @@ In the dialoge that follows, select **+ Add Visualization**
 <img src="./media/grafana-add-visualization.png" alt="Search" width="50%">
 
 
-.
+Select the **Managed Prometheus** as data source
 
+<img src="./media/managed-prometheus-data-source.png" alt="Search" width="50%">
 
+In the new panel that opens up, look for **Metric** and select something interesting, like for instance ```` ````
+
+dashboard-node-pods.png
