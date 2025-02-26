@@ -132,6 +132,12 @@ Then select **Create** and after validation click on the **Create** button.
 
 #### Create your first dashboard
 
+When the **Managed Grafana** instance has been created, just click on **Go to resource**
+
+
+<img src="./media/grafana-go-to-resource.png" alt="Search" width="50%">
+
+
 Create a new dashboard in Grafana.
 Add a panel to display CPU usage metrics from Prometheus.
 
