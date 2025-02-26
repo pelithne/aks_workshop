@@ -179,6 +179,7 @@ This dashboard container metrics for CPU and Memory utilization in the pods. In 
 <img src="./media/grafana-node-pod-dasboard.png" alt="Search" width="50%">
 
 
+#### If you have some time left, play around with the different dashboards or create a custom dashboard if you are already familiar with Grafana and Prometheus.
 
 
 
@@ -187,24 +188,3 @@ This dashboard container metrics for CPU and Memory utilization in the pods. In 
 
 
 
-
-
-
-
-
-
-
-Click on **New** in the top right hand corner, and then choose **New Dashboard**. 
-
-In the dialoge that follows, select **+ Add Visualization**
-
-<img src="./media/grafana-add-visualization.png" alt="Search" width="50%">
-
-
-Select the **Managed Prometheus** as data source
-
-<img src="./media/managed-prometheus-data-source.png" alt="Search" width="50%">
-
-In the new panel that opens up, look for **Metric** and select something interesting, like for instance ```` ````
-
-dashboard-node-pods.png
