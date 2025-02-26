@@ -1,13 +1,12 @@
 # Using Azure Monitor with Managed Prometheus and Grafana
 
-In this section you will be using Azure Monitor with managed Prometheus, Grafana, and Container Insights. By the end of this tutorial, you will have a basic understanding of how to monitor your AKS cluster using these tools.
+In this section you will be using Azure Monitor with managed Prometheus and Grafana. By the end of this tutorial, you will have a basic understanding of how to monitor your AKS cluster using these tools.
 
 
 
 ## Objectives
-Enable Container Insights
-Enable managed Prometheus and MAnaged Grafana
-Create and view dashboards
+* Enable managed Prometheus and Managed Grafana
+* Create and view dashboards
 
 
 ## Introduction
@@ -69,6 +68,7 @@ retina-agent-qdhdw                              0/1     Running   0             
 
 Next, enable **Container Insights**
 
+This section is mostly **FYI**. If 
 
 #### Note: this might take a few minutes. Take a leg stretcher or a cup of coffee!
 ````
