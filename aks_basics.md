@@ -1,6 +1,6 @@
 # 1. Kubernetes Workshop
 
-This workshop/tutorial contains a number of different sections, each addressing a specific aspect of running workloads (containers) in Kubernetes, including how to design CI/CD pipelines.
+This workshop/tutorial contains a number of different sections, each addressing a specific aspect of running workloads (containers) in Kubernetes.
 
 You will go through the following steps to complete the workshop:
 
