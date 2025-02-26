@@ -13,13 +13,7 @@ You will go through the following steps to complete the workshop:
 # 2. Prerequisites
 
 ## 2.1 Subscription
-You need a valid Azure subscription. If you do not have one, you can sign up for a free trial account here: <https://azure.microsoft.com/en-us/free/>
-
-To use a specific subscription, use the ````account```` command like this (with your subscription id):
-````
-az account set --subscription <subscription-id>
-````
-If don't h ave a shell set up to run this command, there will be instructions further down to do that.
+You should have received a Azure Subscription Voucher. If you have not already activate, you can do that now. DO NOT USE YOUR WORK EMAIL.
 
 ## 2.2. Azure Portal
 
@@ -57,11 +51,10 @@ cd aks_workshop
 
 Azure Cloud Shell has a built in code editor, which is based on the popular VS Code editor. To view/edit all the files in the repository, run code like this:
 
-Note: If you are asked to "downgrade" to classic, please do so.
-
 ````bash
 code .
 ````
+#### Note: If you are asked to "downgrade" to classic, please do so.
 
 You can navigate the files in the repo in the left hand menu, and edit the files in the right hand window. Use the *right mouse button* to access the various commands (e.g. ````Save```` and ````Quit```` etc).
 
