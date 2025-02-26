@@ -13,11 +13,12 @@ In this section you will be using Azure Monitor with managed Prometheus and Graf
 This section describes how to enable complete monitoring of your Kubernetes clusters using the following Azure Monitor features:
 
 * Managed Prometheus for metric collection
-* Container insights for log collection
 * Managed Grafana for visualization.
 
 
-Using the Azure portal, you can enable all of the features at the same time. You can also enable them individually by using the Azure CLI, Azure Resource Manager template, Terraform, or Azure Policy. In these instructions, we use the azure CLI.
+Using the Azure portal, you can enable all of the features at the same time. This is very simple, but we are here to learn! :-)
+
+You can also enable them individually by using the Azure CLI, Azure Resource Manager template, Terraform, or Azure Policy. In these instructions, we use mainly the azure CLI.
 
 ### Add metrics add-on to scrape Prometheus metrics
 
@@ -64,34 +65,6 @@ metrics-server-5dfc656944-jfd9n                 2/2     Running   0             
 retina-agent-qdhdw                              0/1     Running   0             55s
 
 ````
-
-
-Next, enable **Container Insights**
-
-This section is mostly **FYI**. If 
-
-#### Note: this might take a few minutes. Take a leg stretcher or a cup of coffee!
-````
-az aks enable-addons --addon monitoring --name <cluster-name> --resource-group <cluster-resource-group-name>
-````
-This will install pods with names similar to ````ama-logs-7mckv ```` and ````ama-logs-rs-554fbb5967-nj8hx````. These pods are responsible for gathering log data from various Kubernetes components, including applications, containers, and system logs. They also forward the logs to Azure Monitor.
-
-You can check this using ````kubectl get pods```` in ````kube-system```` and grep for ````ama-logs```` to see the newly created pods. 
-
-````
-kubectl get pods -n kube-system |grep "ama-logs"
-````
-
-This should give an output similar to this
-
-````
-ama-logs-7mckv                                  3/3     Running   0             76s
-ama-logs-7vl5j                                  3/3     Running   0             35s
-ama-logs-rs-554fbb5967-nj8hx                    2/2     Running   0             76s
-````
-
-
-
 
 ### Work with Grafana
 
