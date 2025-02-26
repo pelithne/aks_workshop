@@ -13,13 +13,7 @@ You will go through the following steps to complete the workshop:
 # 2. Prerequisites
 
 ## 2.1 Subscription
-You need a valid Azure subscription. If you do not have one, you can sign up for a free trial account here: <https://azure.microsoft.com/en-us/free/>
-
-To use a specific subscription, use the ````account```` command like this (with your subscription id):
-````
-az account set --subscription <subscription-id>
-````
-If don't h ave a shell set up to run this command, there will be instructions further down to do that.
+You should have received a Azure Subscription Voucher. If you have not already activated your subscription, you can do that now. DO NOT USE YOUR WORK EMAIL.
 
 ## 2.2. Azure Portal
 
@@ -31,7 +25,7 @@ It might be a good idea to keep a tab with the Azure Portal open during the work
 
 We will use the Azure Cloud Shell (ACS) throughout the workshop for all our command line needs. This is a web based shell that has all the necessary tools (like kubectl, az cli, helm, etc) pre-installed.
 
-Start cloud shell by typing the address ````shell.azure.com```` into a web browser. If you have not used cloud shell before, you will be asked to create a storage location for cloud shell. Accept that and make sure that you run bash as your shell (not powershell).
+Start cloud shell by typing the address ````shell.azure.com```` into a web browser. If you have not used cloud shell before, you will be asked to create a storage location for cloud shell. Accept that and make sure that you run **bash** as your shell (not powershell).
 
 **Protip: You can use ctrl-c to copy text in cloud shell. To paste you have to use shift-insert, or use the right mouse button -> paste. If you are on a Mac, you can use the "normal" Cmd+C/Cmd+V.**
 
@@ -57,11 +51,10 @@ cd aks_workshop
 
 Azure Cloud Shell has a built in code editor, which is based on the popular VS Code editor. To view/edit all the files in the repository, run code like this:
 
-Note: If you are asked to "downgrade" to classic, please do so.
-
 ````bash
 code .
 ````
+#### Note: If you are asked to "downgrade" to classic, please do so.
 
 You can navigate the files in the repo in the left hand menu, and edit the files in the right hand window. Use the *right mouse button* to access the various commands (e.g. ````Save```` and ````Quit```` etc).
 
@@ -138,14 +131,11 @@ Kubernetes provides a distributed platform for containerized applications. You b
 
 ### Note: you may need a special command to create your cluster. Ask you coach for guidance
 
-
 Create an AKS cluster using ````az aks create````. Make sure to attach the Azure Container Registry created in a previous step, using the ````attach-acr flag````. Lets give the cluster the name  ````k8s````, and run the command:
 
 ```azurecli
 az aks create --resource-group <resource-group-name> --name k8s --node-count 1 --node-vm-size Standard_D2s_v4 --attach-acr <your unique ACR name> --enable-cluster-autoscaler --min-count 1 --max-count 10 --generate-ssh-keys
 ```
-
-The creation time for the cluster can be up to 10 minutes, so this might be a good time for a leg stretcher and/or cup of coffee!
 
 ### 3.5.2. Validate towards Kubernetes Cluster
 
@@ -343,12 +333,3 @@ kubectl get service azure-vote-front
 Now open a local web browser to the IP address.
 
 ![Image of Kubernetes cluster on Azure](./media/vote-app-updated-external.png)
-
-## 3.7. Clean-up
-
-Make sure the application is deleted from the cluster
-
-````bash
-kubectl delete -f manifests/deployment.yaml
-kubectl delete -f manifests/service.yaml
-````
