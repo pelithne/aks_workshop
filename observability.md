@@ -127,6 +127,25 @@ You only have to care about the **Basics**
 
 Then select **Create** and after validation click on the **Create** button.
 
+#### Link Grafana workspace with 
+When you configured the Prometheus scraping, an **Azure Monitor Workspace** was automatically created for you. For **Grafana** to be able to use the metrics from Prometheus, a connection to that workspace needs to be configured. 
+
+The easiest way to find the workspace is to search in the Azure Portal. Search for **Azure Monitor Workspace**
+
+<img src="./media/search-azure-monitor-workspace.png" alt="Search" width="50%">
+
+
+Click on **Azure Monitor Workspace** in the search results. Then select **Linked Grafana Workspaces** in the left hand navigation bar.
+
+<img src="./media/linked-grafana-workspaces.png" alt="Search" width="30%">
+
+There will be no linked Grafana Workspaces available, so select **Link**.
+
+When you click to expand the **Grafana Workspace** field, you will find the Grafana workspace previosly created. 
+
+<img src="./media/select-grafana-workspace-to-link.png" alt="Search" width="50%">
+
+Select it, and click on the **Link** button.
 
 
 
@@ -146,7 +165,7 @@ Click on that link to go to your Grafana instance. You will be able to log into 
 
 In the left hand navigation pane, select **Dashboards**
 
-<img src="./media/grafana-navigation.png" alt="Search" width="50%">
+<img src="./media/grafana-navigation.png" alt="Search" width="30%">
 
 Click on **New** in the top right hand corner, and then choose **New Dashboard**. 
 
@@ -155,7 +174,6 @@ In the dialoge that follows, select **+ Add Visualization**
 <img src="./media/grafana-add-visualization.png" alt="Search" width="50%">
 
 
-Create a new dashboard in Grafana.
-Add a panel to display CPU usage metrics from Prometheus.
+.
 
 
