@@ -138,14 +138,18 @@ Kubernetes provides a distributed platform for containerized applications. You b
 
 ### Note: you may need a special command to create your cluster. Ask you coach for guidance
 
+First, you need to create a resource group for your AKS cluster. 
+
+````
+az group create  --name <resource-group-name> --location=swedencentral
+````
+
 
 Create an AKS cluster using ````az aks create````. Make sure to attach the Azure Container Registry created in a previous step, using the ````attach-acr flag````. Lets give the cluster the name  ````k8s````, and run the command:
 
 ```azurecli
 az aks create --resource-group <resource-group-name> --name k8s --node-count 1 --node-vm-size Standard_D2s_v4 --attach-acr <your unique ACR name> --enable-cluster-autoscaler --min-count 1 --max-count 10 --generate-ssh-keys
 ```
-
-The creation time for the cluster can be up to 10 minutes, so this might be a good time for a leg stretcher and/or cup of coffee!
 
 ### 3.5.2. Validate towards Kubernetes Cluster
 
@@ -343,12 +347,3 @@ kubectl get service azure-vote-front
 Now open a local web browser to the IP address.
 
 ![Image of Kubernetes cluster on Azure](./media/vote-app-updated-external.png)
-
-## 3.7. Clean-up
-
-Make sure the application is deleted from the cluster
-
-````bash
-kubectl delete -f manifests/deployment.yaml
-kubectl delete -f manifests/service.yaml
-````
