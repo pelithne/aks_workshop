@@ -1,17 +1,17 @@
-## Using Azure Monitor with Managed Prometheus, Grafana, and Container Insights
+# Using Azure Monitor with Managed Prometheus, Grafana, and Container Insights
 
 
 In this section you will be using Azure Monitor with managed Prometheus, Grafana, and Container Insights. By the end of this tutorial, you will have a basic understanding of how to monitor your AKS cluster using these tools.
 
 
 
-### Objectives
+## Objectives
 Enable Container Insights
 Enable managed Prometheus and MAnaged Grafana
 Create and view dashboards
 
 
-### Introduction
+## Introduction
 This section describes how to enable complete monitoring of your Kubernetes clusters using the following Azure Monitor features:
 
 * Managed Prometheus for metric collection
@@ -21,7 +21,7 @@ This section describes how to enable complete monitoring of your Kubernetes clus
 
 Using the Azure portal, you can enable all of the features at the same time. You can also enable them individually by using the Azure CLI, Azure Resource Manager template, Terraform, or Azure Policy. In these instructions, we use the azure CLI.
 
-#### Add metrics add-on to scrape Prometheus metrics
+### Add metrics add-on to scrape Prometheus metrics
 
 Use the ````--enable-azure-monitor-metrics```` option for ````az aks update````  to install the metrics add-on that scrapes Prometheus metrics. 
 
@@ -94,9 +94,11 @@ ama-logs-rs-554fbb5967-nj8hx                    2/2     Running   0             
 
 
 
-#### Create a Grafana dashboard
+### Work with Grafana
 
-Now that we have create the log and metrics collection, we can go ahead and create a grafana dashboard. 
+Now that we have configured the log and metrics collection, we can go ahead and create a grafana dashboard. 
+
+#### Create Managed Grafana Instance
 
 In the search field in the Azure Portal, write **grafana**. In your search results, you should see **Azure Managed Grafana**
 
@@ -121,19 +123,14 @@ Now, you need to configure your Grafana, just like when creating any Azure resou
 | Pricing Plan       | Standard                                                             |
 | Grafana Version    | 10     
 
-The select **Create** and after validation click on the **Create** button.
+Then select **Create** and after validation click on the **Create** button.
 
 
-In Grafana, go to Dashboards > New Dashboard.
-Add a new panel and select Prometheus as the data source.
-Create visualizations based on your metrics.
 
-#### Create a CPU Usage Dashboard
+
+#### Create your first dashboard
 
 Create a new dashboard in Grafana.
 Add a panel to display CPU usage metrics from Prometheus.
 
 
-#### Monitor Pod Memory Usage
-
-Add another panel to your dashboard to monitor memory usage of pods.
