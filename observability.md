@@ -100,11 +100,12 @@ Now that we have create the log and metrics collection, we can go ahead and crea
 
 In the search field in the Azure Portal, write **grafana**. In your search results, you should see **Azure Managed Grafana**
 
-![Search](./media/search-managed-grafana.png)
+<img src="./media/search-managed-grafana.png" alt="Search" width="50%">
 
 When you click on **Azure Managed Grafana** you will be presented with the option to create a managed grafana instance. 
 
-![Search](./media/no-managed-grafana.png)
+<img src="./media/no-managed-grafana.png" alt="Search" width="50%">
+
 
 
 Click on **Create Azure Managed Grafana**
