@@ -1,5 +1,4 @@
-# Using Azure Monitor with Managed Prometheus, Grafana, and Container Insights
-
+# Using Azure Monitor with Managed Prometheus and Grafana
 
 In this section you will be using Azure Monitor with managed Prometheus, Grafana, and Container Insights. By the end of this tutorial, you will have a basic understanding of how to monitor your AKS cluster using these tools.
 
@@ -179,7 +178,9 @@ This dashboard container metrics for CPU and Memory utilization in the pods. In 
 <img src="./media/grafana-node-pod-dasboard.png" alt="Search" width="50%">
 
 
-#### If you have some time left, play around with the different dashboards or create a custom dashboard if you are already familiar with Grafana and Prometheus.
+#### If you feel that you have the time, play around with the different dashboards or create a custom dashboard if you are already familiar with Grafana and Prometheus.
+
+
 
 
 
