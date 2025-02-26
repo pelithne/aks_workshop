@@ -137,6 +137,23 @@ When the **Managed Grafana** instance has been created, just click on **Go to re
 
 <img src="./media/grafana-go-to-resource.png" alt="Search" width="50%">
 
+(if you closed the blade, you can search for **Grafana** again in the search field of the Azure Portal)
+
+
+In the **Overview** of your Grafana resource, there will be a link to your **Grafana Endpoint** which will look similar to ````https://k8s-ws-grafana-98765-hhh6gsfgbmaacjba.cse.grafana.azure.com````. 
+
+Click on that link to go to your Grafana instance. You will be able to log into Grafana using the same username and credentials that you used for the Azure Portal.
+
+In the left hand navigation pane, select **Dashboards**
+
+<img src="./media/grafana-navigation.png" alt="Search" width="50%">
+
+Click on **New** in the top right hand corner, and then choose **New Dashboard**. 
+
+In the dialoge that follows, select **+ Add Visualization**
+
+<img src="./media/grafana-add-visualization.png" alt="Search" width="50%">
+
 
 Create a new dashboard in Grafana.
 Add a panel to display CPU usage metrics from Prometheus.
