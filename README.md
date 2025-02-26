@@ -5,5 +5,3 @@ This repository contains instructions for a workshop about Containers and Kubern
 **Section 2:** <a href="https://github.com/pelithne/aks_workshop/blob/master/management.md">Testing, Upgrade, Management and Scaling</a>
 
 **Section 3:** <a href="https://github.com/pelithne/aks_workshop/blob/master/observability.md">Observability in AKS</a>
-
-**Section 4:** <a href="https://github.com/pelithne/aks_workshop/blob/master/defender.md">Defender for containers</a>
