@@ -119,7 +119,7 @@ kubectl get service azure-vote-front -o jsonpath='{.status.loadBalancer.ingress[
 21)  Click **Next** You should now be in Test plan view.
 22)  Click **Add request**.
 23)  In the Request name type **AksEndPoint**
-24) In the URL field, provide the IP for your exposed pod in AKS, as this is the endpoint we will be generating load for, in the following format "http://<Public IP>"
+24) In the URL field, provide the IP for your exposed pod in AKS, as this is the endpoint we will be generating load for, in the following format "http://xxx.xxx.xxx"
 
 Let me guess... you forgot the Public IP, didn't you? No worries, we've got your back! 😄
 
