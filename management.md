@@ -71,7 +71,7 @@ Great job reaching this point! We now have the Horizontal Pod Autoscaler (HPA) c
 
 As a tester, you are responsible for running a load test on a company's internet-facing landing page web application, which is deployed on an Azure Kubernetes Service (AKS) cluster. The application owner expects the web application to provide fast and consistent responses to visitors, with an average latency of no more than 800 milliseconds. The application owner also wants to keep the cost of running the web application as low as possible, utilizing HPA and cluster autoscaler to optimize resource usage. You will use Azure Load Testing Service to generate realistic and scalable load on the web application. Based on the requirements, we will use Azure Load Testing Service to create the testing criteria.
 
-### 3.2.1 Test Criteria
+### 3.2.2 Test Criteria
 
 1. **Test Duration**: 5 minutes
 2. **Request Type**: HTTP GET
@@ -80,13 +80,13 @@ As a tester, you are responsible for running a load test on a company's internet
    - Response time should be less than 800 milliseconds for 95% of the requests
    - Error rate should be less than 1%
 
-### 3.2.2 Load Pattern Design
+### 3.2.3 Load Pattern Design
 
 1. **Initial Users**: 10 users
 2. **Ramp-Up**: Increase the number of users by 100 every minute until reaching 500 users
 3. **Steady State**: Maintain 500 users for the remaining duration of the test
 
-### 3.2.3 Configure Azure Load Testing Service
+### 3.2.4 Configure Azure Load Testing Service
 
 1) We need to identify the endpoint of the AKS cluster, where we will generate load towards, copy the public IP address.
    
@@ -119,7 +119,7 @@ kubectl get service azure-vote-front -o jsonpath='{.status.loadBalancer.ingress[
 21)  Click **Next** You should now be in Test plan view.
 22)  Click **Add request**.
 23)  In the Request name type **AksEndPoint**
-24) In the URL field, provide the IP for your exposed pod in AKS, as this is the endpoint we will be generating load for, in the following format http://<public IP>
+24) In the URL field, provide the IP for your exposed pod in AKS, as this is the endpoint we will be generating load for, in the following format "http://<Public IP>"
 
 Let me guess... you forgot the Public IP, didn't you? No worries, we've got your back! 😄
 
@@ -172,7 +172,7 @@ We have now configured:
     kubectl get nodes --watch
     ````
 
-### 3.2.4 Upgrading AKS Cluster
+### 3.2.5 Upgrading AKS Cluster
 
 Upgrading your AKS cluster ensures that you are running the latest version of Kubernetes, which includes new features, security patches, and performance improvements. Follow these steps to upgrade your AKS cluster:
 
@@ -205,7 +205,7 @@ Upgrading your AKS cluster ensures that you are running the latest version of Ku
    kubectl get nodes
 ```
 
-### 3.2.5 Reflecting on Test Results (Optional)
+### 3.2.6 Reflecting on Test Results (Optional)
 
 After running the load test, take some time to reflect on the results and consider how you can improve your application's performance.
 
